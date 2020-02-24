@@ -143,9 +143,7 @@ df%>%
 ```
 ### Research Question
 
-Currently, all 10 prompts in the survey have equal importance in the app’s classification process.
-Using the same data, are we able to find which (if any) questions are of more significance to determining whether someone has autism spectrum disorder? 
-Are there other variables that are as important or more important to determining a diagnosis?
+In this analysis, we will seek to determine the relationship between the AQ-10 result (cumulative score) and the age of the individual.
 
 ### Plan of Action
 
