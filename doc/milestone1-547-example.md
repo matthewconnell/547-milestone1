@@ -187,7 +187,9 @@ df  %>%
 
 ![](milestone1-547-example_files/figure-html/bar-chart-1.png)<!-- -->
 
-The above dodged bar chart shows the occurences of autism in people of different ethnicities who took the survey. This plot illustrates an issue with the dataset: there are two levels called 'others' and one called NA
+The above dodged bar chart shows the occurences of autism in people of different ethnicities who took the survey. This plot also illustrates an issue with the dataset: there are two levels called 'others' and one called NA. We should definitely combine the two 'others' columns and also decide what to do about the NAs.
+
+#### Proportional Bar Chart
 
 
 ```r
@@ -197,7 +199,7 @@ df%>%
              position = "fill")+
     ylab("Proportion of Participants")+
     xlab("ASD-10 Test Score")+
-    ggtitle("Proportion of Participants by ASD-10 Test Score")+
+    ggtitle("Proportion of Participants by \nASD-10 Test Score")+
     scale_fill_brewer(name = "Diagnosed \nwith Autism", palette = "Paired") +
     theme_bw(20)
 ```
