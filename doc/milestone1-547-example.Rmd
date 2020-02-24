@@ -135,4 +135,12 @@ The above proportional bar chart shows the percentage of people who were diagnos
 
 ### Research Question
 
+Currently, all 10 prompts in the survey have equal importance in the app’s classification process. Using the same data, are we able to find which (if any) questions are of more significance to determining whether someone has autism spectrum disorder? Are there other variables that are as important or more important to determining a diagnosis?
 
+### Plan of Action
+
+First, we will split the data into training, validation, and test sets. We will attempt to find any highly correlated variables and deal with them so that our model is more robust. We will measure the quality of our model using recall score, as there is a great deal of class imbalance in the dataset. 
+
+### References
+
+Thomas Pin and Tejas Phaterpekar, Matthew Connell - Autism Spectrum Disorder Screening Machine Learning Analysis - https://github.com/UBC-MDS/522-Workflows-Group-414

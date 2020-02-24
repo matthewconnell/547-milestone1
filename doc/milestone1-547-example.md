@@ -206,8 +206,16 @@ df%>%
 
 ![](milestone1-547-example_files/figure-html/proportion-1.png)<!-- -->
 
-
+The above proportional bar chart shows the percentage of people who were diagnosed with autism given a particular score on the autism screening test. A score of 0 would mean that it's incredibly unlikely the person would be diagnosed with autism. In general, the higher the score, the more likely it is that the person has autism.
 
 ### Research Question
 
+Currently, all 10 prompts in the survey have equal importance in the app’s classification process. Using the same data, are we able to find which (if any) questions are of more significance to determining whether someone has autism spectrum disorder? Are there other variables that are as important or more important to determining a diagnosis?
 
+### Plan of Action
+
+First, we will split the data into training, validation, and test sets. We will attempt to find any highly correlated variables and deal with them so that our model is more robust. We will measure the quality of our model using recall score, as there is a great deal of class imbalance in the dataset. 
+
+### References
+
+Thomas Pin and Tejas Phaterpekar, Matthew Connell - Autism Spectrum Disorder Screening Machine Learning Analysis - https://github.com/UBC-MDS/522-Workflows-Group-414
