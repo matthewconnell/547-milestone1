@@ -16,13 +16,25 @@ bibliography: ../doc/asd_refs.bib
 
 ### Introduction
 
-Autism Spectrum Disorder (ASD) is a complex neurodevelopmental condition that impairs social interpretation/communication ability, as well as the presence of repetitive behaviors. Current diagnostic procedures are lengthy and inefficient. Affecting 1.5% of the population, with many more cases going undetected, an easy-to-implement, effective screening method is warranted. ASDTest, a mobile app, has been introduced to provide an accessible screening method that tells the user whether they should seek professional healthcare opinions, based on a 10 question survey. The ability to recognize and diagnose ASD at an early age can allow the affected to access the healthcare resources and support they will need, in a timely manner. 
+Autism Spectrum Disorder (ASD) is a complex neurodevelopmental condition that impairs social interpretation/communication ability, as well as the presence of repetitive behaviors.
+Current diagnostic procedures are lengthy and inefficient [@Fadi]. 
+Affecting 1.5% of the population, with many more cases going undetected, an easy-to-implement, effective screening method is warranted.
+ASDTest, a mobile app, has been introduced to provide an accessible screening method that tells the user whether they should seek professional healthcare opinions, based on a 10 question survey [@allison2012toward].
+The ability to recognize and diagnose ASD at an early age can allow the affected to access the healthcare resources and support they will need, in a timely manner. 
 
-The Autism Spectrum Quotient-10 ([AQ-10](https://www.nice.org.uk/guidance/cg142/resources/autism-spectrum-quotient-aq10-test-pdf-186582493)) consists of 10 questions intended to differentiate characteristics of autism in individuals. Each question has four possible answers: "Definitely Agree", "Slightly Agree, "Slightly Disagree", and "Definitely Disagree". For questions 1, 5, 7, and 10, a value of 1 is assigned for either a "slightly agree" or a "definitely agree" response. For questions 2, 3, 4, 6, 8, and 9, a value of 1 is assigned for either a "slightly disagree" or a "definitely. disagree" response. A cumulative score is calculated and a participant who receives a total score of greater than 6 is recommended for a specialist diagnostic assessment.
+The Autism Spectrum Quotient-10 ([AQ-10](https://www.nice.org.uk/guidance/cg142/resources/autism-spectrum-quotient-aq10-test-pdf-186582493)) consists of 10 questions intended to differentiate characteristics of autism in individuals.
+Each question has four possible answers: "Definitely Agree", "Slightly Agree, "Slightly Disagree", and "Definitely Disagree".
+For questions 1, 5, 7, and 10, a value of 1 is assigned for either a "slightly agree" or a "definitely agree" response.
+For questions 2, 3, 4, 6, 8, and 9, a value of 1 is assigned for either a "slightly disagree" or a "definitely. disagree" response.
+A cumulative score is calculated and a participant who receives a total score of greater than 6 is recommended for a specialist diagnostic assessment.
+
 
 ### Data Description
 
-The [dataset](https://archive.ics.uci.edu/ml/datasets/Autism+Screening+Adult)  used in this analysis was obtained from the University of California Irvine Machine learning Repository, uploaded by Fadi Thabtah. Each row represents an individual who participated in the survey. The survey's results, the app's classification, and some background information about the individual was recorded. Below is the entire variable set:
+The [dataset](https://archive.ics.uci.edu/ml/datasets/Autism+Screening+Adult)  used in this analysis was obtained from the University of California Irvine Machine learning Repository, uploaded by Fadi Thabtah.
+Each row represents an individual who participated in the survey.
+The survey's results, the app's classification, and some background information about the individual was recorded.
+Below is the entire variable set:
 
 <table class="table table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -165,12 +177,14 @@ corrplot(autism_corr,
          type="upper", 
          method="color",
          tl.srt=45, 
-         tl.col = "blue")
+         tl.col = "blue",
+         diag = FALSE)
 ```
 
 ![](milestone1-547-example_files/figure-html/corrplot-1.png)<!-- -->
 
-From the correllogram above, we can see that there's very little correlation among any of the ten 'question' variables in the dataset. The light blue in all the squares but those in the main diagonal show that the correlation is close to zero.
+From the correllogram above, we can see that there's very little correlation among any of the ten 'question' variables in the dataset.
+The light blue in all the squares but those in the main diagonal show that the correlation is close to zero.
 
 #### Dodged Bar Chart
 
@@ -187,7 +201,9 @@ df  %>%
 
 ![](milestone1-547-example_files/figure-html/bar-chart-1.png)<!-- -->
 
-The above dodged bar chart shows the occurences of autism in people of different ethnicities who took the survey. This plot also illustrates an issue with the dataset: there are two levels called 'others' and one called NA. We should definitely combine the two 'others' columns and also decide what to do about the NAs.
+The above dodged bar chart shows the occurences of autism in people of different ethnicities who took the survey.
+This plot also illustrates an issue with the dataset: there are two levels called 'others' and one called NA.
+We should definitely combine the two 'others' columns and also decide what to do about the NAs.
 
 #### Proportional Bar Chart
 
@@ -206,15 +222,21 @@ df%>%
 
 ![](milestone1-547-example_files/figure-html/proportion-1.png)<!-- -->
 
-The above proportional bar chart shows the percentage of people who were diagnosed with autism given a particular score on the autism screening test. A score of 0 would mean that it's incredibly unlikely the person would be diagnosed with autism. In general, the higher the score, the more likely it is that the person has autism.
+The above proportional bar chart shows the percentage of people who were diagnosed with autism given a particular score on the autism screening test.
+A score of 0 would mean that it's incredibly unlikely the person would be diagnosed with autism.
+In general, the higher the score, the more likely it is that the person has autism.
 
 ### Research Question
 
-Currently, all 10 prompts in the survey have equal importance in the app’s classification process. Using the same data, are we able to find which (if any) questions are of more significance to determining whether someone has autism spectrum disorder? Are there other variables that are as important or more important to determining a diagnosis?
+Currently, all 10 prompts in the survey have equal importance in the app’s classification process.
+Using the same data, are we able to find which (if any) questions are of more significance to determining whether someone has autism spectrum disorder? 
+Are there other variables that are as important or more important to determining a diagnosis?
 
 ### Plan of Action
 
-First, we will split the data into training, validation, and test sets. We will attempt to find any highly correlated variables and deal with them so that our model is more robust. We will measure the quality of our model using recall score, as there is a great deal of class imbalance in the dataset. 
+First, we will split the data into training, validation, and test sets.
+We will attempt to find any highly correlated variables and deal with them so that our model is more robust.
+We will measure the quality of our model using recall score, as there is a great deal of class imbalance in the dataset. 
 
 ### References
 
