@@ -198,9 +198,9 @@ df  %>%
     ggplot(aes(x=ethnicity, fill=austim))+
     geom_bar(stat="count", position = "dodge")+
     labs(x = "Ethnicity", y = "Count", title = "Occurence of Autism by Ethnicity") + 
-    scale_fill_discrete(name="Autism") +
-    theme_bw(18) +
-    coord_flip()
+    scale_fill_discrete(name="Autism") + # This changes the legend title
+    theme_bw(18) + # Change the theme and set the font size
+    coord_flip() # Flip x- and y-axis
 ```
 
 ![](milestone1-547-example_files/figure-html/bar-chart-1.png)<!-- -->
