@@ -2,6 +2,7 @@
 title: "Milestone1-example"
 author: "Matthew Connell"
 date: "23/02/2020"
+always_allow_html: true
 output: 
   html_document:
     keep_md: yes
@@ -10,9 +11,12 @@ bibliography: ../doc/asd_refs.bib
 ---
 
 ```{r setup, include=FALSE}
+getwd()
 knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(tidyverse)
+library(corrplot)
+library(foreign)
 ```
 
 ## Autism Screening
@@ -60,6 +64,73 @@ data_frame <- data_frame %>% select(-X5, -X1) %>% slice(-1)
 knitr::kable(data_frame) %>% kable_styling(bootstrap_options = "condensed", full_width = F, fixed_thead = TRUE)
 ```
 
+### Exploring the Dataset
+
+```{r read_arff_file}
+
+# First we read in the dataset.
+# This dataset is in .arff format rather than the more standard .csv
+# so we need to load a separate library ("foreign")
+df <- read.arff("../data/Autism-Adult-Data.arff")
+
+```
+
+#### Correllogram
+
+```{r corrplot}
+
+# Convert numeric columns to 'double' type
+df[1:10] <- sapply(df[1:10], as.double)
+autism_corr <- cor(df[1:10])
+
+# Round the values to 2 decimal places
+autism_corr <- round(autism_corr,2)
+corrplot(autism_corr, 
+         type="upper", 
+         method="color",
+         tl.srt=45, 
+         tl.col = "blue")
+
+```
+
+From the correllogram above, we can see that there's very little correlation among any of the ten 'question' variables in the dataset. The light blue in all the squares but those in the main diagonal show that the correlation is close to zero.
+
+#### Dodged Bar Chart
+
+```{r bar-chart}
 
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+df  %>% 
+    ggplot(aes(x=ethnicity, fill=austim))+
+    geom_bar(stat="count", position = "dodge")+
+    labs(x = "Ethnicity", y = "Count", title = "Occurence of Autism by Ethnicity") + 
+    scale_fill_discrete(name="Autism") +
+    theme_bw(18) +
+    coord_flip()
+
+```
+
+The above dodged bar chart shows the occurences of autism in people of different ethnicities who took the survey. This plot illustrates an issue with the dataset: there are two levels called 'others' and one called NA
+
+```{r proportion}
+
+
+df%>% 
+    ggplot()+
+    geom_bar(mapping = aes(x=as.factor(result), fill = austim),
+             position = "fill")+
+    ylab("Proportion of Participants")+
+    xlab("ASD-10 Test Score")+
+    ggtitle("Proportion of Participants by ASD-10 Test Score")+
+    scale_fill_brewer(name = "Diagnosed \nwith Autism", palette = "Paired") +
+    theme_bw(20)
+
+
+```
+
+
+
+### Research Question
+
+
