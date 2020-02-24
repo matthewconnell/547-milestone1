@@ -45,18 +45,18 @@ Below is the entire variable set:
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 library(kableExtra)
 object <- {
-  "| Variable             | Type             | Description                                                                                                                            |
+  "| Variable          | Type             | Description                                                                                                                            |
 |----------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| A1_score             | Int (0,1)        | Prompt: I often notice small sounds when others do not                                                                                 |
-| A2_score             | Int (0,1)        | Prompt: I usually concentrate more on the whole picture, rather than the small details                                                 |
-| A3_score             | Int (0,1)        | Prompt: I find it easy to do more than one thing at once                                                                               |
-| A4_score             | Int (0,1)        | Prompt: If there is an interruption, I can switch back to what I was doing very quickly                                                |
-| A5_score             | Int (0,1)        | Prompt: I find it easy to 'read between the lines' when someone is talking to me                                                       |
-| A6_score             | Int (0,1)        | Prompt: I know how to tell if someone listening to me is getting bored                                                                 |
-| A7_score             | Int (0,1)        | Prompt: When I'm reading a story I find it difficult to work out the characters' intentions                                            |
-| A8_score             | Int (0,1)        | Prompt: I like to collect information about categories of things(e.g. types of car, types of bird, types of train, types of plant etc) |
-| A9_score             | Int (0,1)        | Prompt: I find it easy to work out what someone is thinking or feeling just by looking at their face                                   |
-| A10_score            | Int (0,1)        | Prompt: I find it difficult to work out people's intentions                                                                            |
+| A1_score             | Int (0,1)        | Prompt (yes/no): I often notice small sounds when others do not                                                                                 |
+| A2_score             | Int (0,1)        | Prompt (yes/no): I usually concentrate more on the whole picture, rather than the small details                                                 |
+| A3_score             | Int (0,1)        | Prompt (yes/no): I find it easy to do more than one thing at once                                                                               |
+| A4_score             | Int (0,1)        | Prompt (yes/no): If there is an interruption, I can switch back to what I was doing very quickly                                                |
+| A5_score             | Int (0,1)        | Prompt (yes/no): I find it easy to 'read between the lines' when someone is talking to me                                                       |
+| A6_score             | Int (0,1)        | Prompt (yes/no): I know how to tell if someone listening to me is getting bored                                                                 |
+| A7_score             | Int (0,1)        | Prompt (yes/no): When I'm reading a story I find it difficult to work out the characters' intentions                                            |
+| A8_score             | Int (0,1)        | Prompt (yes/no): I like to collect information about categories of things(e.g. types of car, types of bird, types of train, types of plant etc) |
+| A9_score             | Int (0,1)        | Prompt (yes/no): I find it easy to work out what someone is thinking or feeling just by looking at their face                                   |
+| A10_score            | Int (0,1)        | Prompt (yes/no): I find it difficult to work out people's intentions                                                                            |
 | Age                  | Int              | Age of the individual                                                                                                                  |
 | Gender               | String           | M (male) or F (female)                                                                                                                 |
 | Ethnicity            | String           | Common Ethnicities defined for each individual                                                                                         |
@@ -82,11 +82,13 @@ knitr::kable(data_frame) %>% kable_styling(bootstrap_options = "condensed", full
 # First we read in the dataset.
 # This dataset is in .arff format rather than the more standard .csv
 # so we need to load a separate library ("foreign")
-df <- read.arff("../data/Autism-Adult-Data.arff")
-
+df <- foreign::read.arff("../data/Autism-Adult-Data.arff")
 ```
 
 #### Correllogram
+
+From the correllogram below, we can see that there's very little correlation among any of the ten 'question' variables in the dataset.
+The colour scheme shows all positive correlations as blue, and all negative correlations as red.
 
 ```{r corrplot}
 
@@ -105,15 +107,13 @@ corrplot(autism_corr,
 
 ```
 
-From the correllogram above, we can see that there's very little correlation among any of the ten 'question' variables in the dataset.
-The light blue in all the squares but those in the main diagonal show that the correlation is close to zero.
-
 #### Dodged Bar Chart
 
+The dodged bar chart below shows the occurences of autism in people of different ethnicities who took the survey.
+This plot also illustrates an issue with the dataset: there are two levels called 'others' and one called NA.
+We should definitely combine the two 'others' columns and also decide what to do about the NAs.
+
 ```{r bar-chart}
-
-
-
 df  %>% 
     ggplot(aes(x=ethnicity, fill=austim))+
     geom_bar(stat="count", position = "dodge")+
@@ -121,18 +121,15 @@ df  %>%
     scale_fill_discrete(name="Autism") +
     theme_bw(18) +
     coord_flip()
-
 ```
-
-The above dodged bar chart shows the occurences of autism in people of different ethnicities who took the survey.
-This plot also illustrates an issue with the dataset: there are two levels called 'others' and one called NA.
-We should definitely combine the two 'others' columns and also decide what to do about the NAs.
 
 #### Proportional Bar Chart
 
+The proportional bar chart below shows the percentage of people who were diagnosed with autism given a particular score on the autism screening test.
+A score of 0 would mean that it's incredibly unlikely the person would be diagnosed with autism.
+In general, the higher the score, the more likely it is that the person has autism.
+
 ```{r proportion}
-
-
 df%>% 
     ggplot()+
     geom_bar(mapping = aes(x=as.factor(result), fill = austim),
@@ -142,14 +139,7 @@ df%>%
     ggtitle("Proportion of Participants by \nASD-10 Test Score")+
     scale_fill_brewer(name = "Diagnosed \nwith Autism", palette = "Paired") +
     theme_bw(20)
-
-
 ```
-
-The above proportional bar chart shows the percentage of people who were diagnosed with autism given a particular score on the autism screening test.
-A score of 0 would mean that it's incredibly unlikely the person would be diagnosed with autism.
-In general, the higher the score, the more likely it is that the person has autism.
-
 ### Research Question
 
 Currently, all 10 prompts in the survey have equal importance in the app’s classification process.
