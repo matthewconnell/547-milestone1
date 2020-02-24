@@ -119,9 +119,9 @@ df  %>%
     ggplot(aes(x=ethnicity, fill=austim))+
     geom_bar(stat="count", position = "dodge")+
     labs(x = "Ethnicity", y = "Count", title = "Occurence of Autism by Ethnicity") + 
-    scale_fill_discrete(name="Autism") +
-    theme_bw(18) +
-    coord_flip()
+    scale_fill_discrete(name="Autism") + # This changes the legend title
+    theme_bw(18) + # Change the theme and set the font size
+    coord_flip() # Flip x- and y-axis
 ```
 
 #### Proportional Bar Chart
@@ -148,8 +148,9 @@ In this analysis, we will seek to determine the relationship between the AQ-10 r
 
 ### Plan of Action
 
-We will attempt to find any highly correlated variables and deal with them so that our model is more robust.
-We will measure the quality of our model using recall score, as there is a great deal of class imbalance in the dataset. 
+With our research question, we are only interested in the cumulative score and the age of the individual taking the survey. 
+We will ignore the other variables for the purposes of this analysis. 
+After dealing with the missing data, we will perform a linear regression analysis and plot the relevant variables with a regression line. 
 
 ### References
 

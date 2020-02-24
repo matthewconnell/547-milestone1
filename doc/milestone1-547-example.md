@@ -39,7 +39,7 @@ Below is the entire variable set:
 <table class="table table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">  Variable              </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">  Variable           </th>
    <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">  Type              </th>
    <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">  Description                                                                                                                             </th>
   </tr>
@@ -48,52 +48,52 @@ Below is the entire variable set:
   <tr>
    <td style="text-align:left;"> A1_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: I often notice small sounds when others do not </td>
+   <td style="text-align:left;"> Prompt (yes/no): I often notice small sounds when others do not </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A2_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: I usually concentrate more on the whole picture, rather than the small details </td>
+   <td style="text-align:left;"> Prompt (yes/no): I usually concentrate more on the whole picture, rather than the small details </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A3_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: I find it easy to do more than one thing at once </td>
+   <td style="text-align:left;"> Prompt (yes/no): I find it easy to do more than one thing at once </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A4_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: If there is an interruption, I can switch back to what I was doing very quickly </td>
+   <td style="text-align:left;"> Prompt (yes/no): If there is an interruption, I can switch back to what I was doing very quickly </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A5_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: I find it easy to 'read between the lines' when someone is talking to me </td>
+   <td style="text-align:left;"> Prompt (yes/no): I find it easy to 'read between the lines' when someone is talking to me </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A6_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: I know how to tell if someone listening to me is getting bored </td>
+   <td style="text-align:left;"> Prompt (yes/no): I know how to tell if someone listening to me is getting bored </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A7_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: When I'm reading a story I find it difficult to work out the characters' intentions </td>
+   <td style="text-align:left;"> Prompt (yes/no): When I'm reading a story I find it difficult to work out the characters' intentions </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A8_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: I like to collect information about categories of things(e.g. types of car, types of bird, types of train, types of plant etc) </td>
+   <td style="text-align:left;"> Prompt (yes/no): I like to collect information about categories of things(e.g. types of car, types of bird, types of train, types of plant etc) </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A9_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: I find it easy to work out what someone is thinking or feeling just by looking at their face </td>
+   <td style="text-align:left;"> Prompt (yes/no): I find it easy to work out what someone is thinking or feeling just by looking at their face </td>
   </tr>
   <tr>
    <td style="text-align:left;"> A10_score </td>
    <td style="text-align:left;"> Int (0,1) </td>
-   <td style="text-align:left;"> Prompt: I find it difficult to work out people's intentions </td>
+   <td style="text-align:left;"> Prompt (yes/no): I find it difficult to work out people's intentions </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Age </td>
@@ -160,10 +160,13 @@ Below is the entire variable set:
 # First we read in the dataset.
 # This dataset is in .arff format rather than the more standard .csv
 # so we need to load a separate library ("foreign")
-df <- read.arff("../data/Autism-Adult-Data.arff")
+df <- foreign::read.arff("../data/Autism-Adult-Data.arff")
 ```
 
 #### Correllogram
+
+From the correllogram below, we can see that there's very little correlation among any of the ten 'question' variables in the dataset.
+The colour scheme shows all positive correlations as blue, and all negative correlations as red.
 
 
 ```r
@@ -183,10 +186,11 @@ corrplot(autism_corr,
 
 ![](milestone1-547-example_files/figure-html/corrplot-1.png)<!-- -->
 
-From the correllogram above, we can see that there's very little correlation among any of the ten 'question' variables in the dataset.
-The light blue in all the squares but those in the main diagonal show that the correlation is close to zero.
-
 #### Dodged Bar Chart
+
+The dodged bar chart below shows the occurences of autism in people of different ethnicities who took the survey.
+This plot also illustrates an issue with the dataset: there are two levels called 'others' and one called NA.
+We should definitely combine the two 'others' columns and also decide what to do about the NAs.
 
 
 ```r
@@ -201,11 +205,11 @@ df  %>%
 
 ![](milestone1-547-example_files/figure-html/bar-chart-1.png)<!-- -->
 
-The above dodged bar chart shows the occurences of autism in people of different ethnicities who took the survey.
-This plot also illustrates an issue with the dataset: there are two levels called 'others' and one called NA.
-We should definitely combine the two 'others' columns and also decide what to do about the NAs.
-
 #### Proportional Bar Chart
+
+The proportional bar chart below shows the percentage of people who were diagnosed with autism given a particular score on the autism screening test.
+A score of 0 would mean that it's incredibly unlikely the person would be diagnosed with autism.
+In general, the higher the score, the more likely it is that the person has autism.
 
 
 ```r
@@ -222,21 +226,15 @@ df%>%
 
 ![](milestone1-547-example_files/figure-html/proportion-1.png)<!-- -->
 
-The above proportional bar chart shows the percentage of people who were diagnosed with autism given a particular score on the autism screening test.
-A score of 0 would mean that it's incredibly unlikely the person would be diagnosed with autism.
-In general, the higher the score, the more likely it is that the person has autism.
-
 ### Research Question
 
-Currently, all 10 prompts in the survey have equal importance in the app’s classification process.
-Using the same data, are we able to find which (if any) questions are of more significance to determining whether someone has autism spectrum disorder? 
-Are there other variables that are as important or more important to determining a diagnosis?
+In this analysis, we will seek to determine the relationship between the AQ-10 result (cumulative score) and the age of the individual.
 
 ### Plan of Action
 
-First, we will split the data into training, validation, and test sets.
-We will attempt to find any highly correlated variables and deal with them so that our model is more robust.
-We will measure the quality of our model using recall score, as there is a great deal of class imbalance in the dataset. 
+With our research question, we are only interested in the cumulative score and the age of the individual taking the survey. 
+We will ignore the other variables for the purposes of this analysis. 
+After dealing with the missing data, we will perform a linear regression analysis and plot the relevant variables with a regression line. 
 
 ### References
 
