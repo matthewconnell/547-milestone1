@@ -100,7 +100,8 @@ corrplot(autism_corr,
          type="upper", 
          method="color",
          tl.srt=45, 
-         tl.col = "blue")
+         tl.col = "blue",
+         diag = FALSE)
 
 ```
 
